@@ -21,7 +21,16 @@ const ListUsers = ({navigation}) => {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const state = useSelector(state => state.state)
+  useEffect(() => {
+    GetUsersApi()
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data)
+        setLoading(false)
+      })
+  }, [])
+
+  // const state = useSelector(state => state.state)
 
   if(loading) {
     return <Loading />
